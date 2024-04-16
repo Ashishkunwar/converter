@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speech to Text</title>
+</head>
+<style>
+    body{
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        background-image: url(https://static.vecteezy.com/system/resources/previews/006/852/804/non_2x/abstract-blue-background-simple-design-for-your-website-free-vector.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+h1{
+    text-align: center;
+    font-size: 50px;
+    color: white;
+}
+.box{
+    justify-content: center;
+    text-align: center;
+    
+}
+textarea{
+    background-color: white;
+
+    color: rgb(30, 29, 29);
+}
+textarea:hover,button:hover{
+        filter: drop-shadow(10px 10px 20px);
+
+}
+button{
+color: black;
+font-weight:bold;
+text-align:center;
+justify-content:center ;
+
+
+}
+</style>
+<body>
+
+    <h1>Speech to text converter</h1>
+    <br>
+    <div class="box">
+          <textarea name="output" id="output" cols="30" rows="10"></textarea><br>
+    <button id="startButton">Start</button>
+    </div>
+  
+    <script>
+        const startButton = document.getElementById('startButton');
+const outputDiv = document.getElementById('output');
+
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)();
+recognition.lang = 'en-US';
+
+recognition.onstart = () => {
+    startButton.textContent = 'Listening...';
+};
+
+recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    outputDiv.textContent = transcript;
+};
+
+recognition.onend = () => {
+    startButton.textContent = 'Start';
+};
+
+startButton.addEventListener('click', () => {
+    recognition.start();
+});
+    </script>
+</body>
+</html>
